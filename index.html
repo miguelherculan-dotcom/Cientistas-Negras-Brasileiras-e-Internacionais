@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mulheres Negras na Ciência</title>
+    <!-- Google Fonts: Instrument Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0B0B0F;
+            --card-bg: #141419;
+            --gold: #D4AF37;
+            --terracotta: #E9955C;
+            --ivory: #F6F2E9;
+            --text-secondary: #A9A7AE;
+            --border-color: #34302A;
+            --top-line-color: #39332A;
+            --footer-bg: #101014;
+            --glow-color: #2C2115;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--ivory);
+            font-family: 'Instrument Sans', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Abertura / Hero */
+        header.hero {
+            padding: 32px 48px 64px 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
+        }
+
+        .top-bar {
+            width: 100%;
+            max-width: 1104px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--top-line-color);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+        }
+
+        .top-bar span:first-child {
+            color: var(--ivory);
+        }
+
+        .hero-content {
+            margin-top: 64px;
+            max-width: 940px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        h1.hero-title {
+            font-size: 76px;
+            font-weight: 700;
+            line-height: 1.04;
+            letter-spacing: -0.045em;
+        }
+
+        h1.hero-title span.gold {
+            color: var(--gold);
+        }
+
+        .hero-description {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 550px;
+        }
+
+        /* Botão */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--gold);
+            color: var(--bg-color);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 16px 28px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Secção de Histórias */
+        section.stories {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 56px 48px 80px 48px;
+        }
+
+        .stories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 32px;
+        }
+
+        .stories-titles {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stories-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+        }
+
+        .stories-title {
+            font-size: 38px;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+        }
+
+        .stories-counter {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+        }
+
+        /* Grelha de Cartões */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+        }
+
+        .card-image-container {
+            width: 100%;
+            height: 360px;
+            overflow: hidden;
+            background-color: #1f1f26;
+            position: relative;
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+        }
+
+        .card-content {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .card-name {
+            font-size: 27px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--ivory);
+            letter-spacing: -0.015em;
+        }
+
+        .card-profession {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .card-contribution {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--footer-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        footer p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        footer p.footer-quote {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        footer p.footer-school {
+            font-weight: 600;
+            color: var(--ivory);
+        }
+
+        /* Responsividade para Tablet (810px ou menos) */
+        @media (max-width: 1199px) {
+            header.hero {
+                padding: 32px 32px 56px 32px;
+            }
+            h1.hero-title {
+                font-size: 56px;
+            }
+            section.stories {
+                padding: 40px 32px 64px 32px;
+            }
+        }
+
+        /* Responsividade para Telemóvel (abaixo de 810px) */
+        @media (max-width: 809px) {
+            header.hero {
+                padding: 24px 24px 48px 24px;
+            }
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .top-bar span:nth-child(2) {
+                display: none; /* Oculta indicador direito no topo conforme especificado */
+            }
+            .hero-content {
+                margin-top: 40px;
+            }
+            h1.hero-title {
+                font-size: 40px;
+            }
+            .hero-description {
+                font-size: 16px;
+            }
+            section.stories {
+                padding: 40px 24px 56px 24px;
+            }
+            .stories-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .stories-title {
+                font-size: 30px;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-image-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Abertura / Hero -->
+    <header class="hero" id="topo">
+        <div class="top-bar">
+            <span>MULHERES NEGRAS / NA CIÊNCIA</span>
+            <span>CIÊNCIA, MEMÓRIA E REPRESENTATIVIDADE</span>
+        </div>
+        
+        <div class="hero-content">
+            <span class="hero-subtitle">LEGADOS QUE ABREM CAMINHOS</span>
+            <h1 class="hero-title">Pioneiras da Ciência: <span class="gold">Vozes que Transformaram o Mundo</span></h1>
+            <p class="hero-description">Conheça quatro cientistas negras nacionais e internacionais que marcaram a história.</p>
+            <a href="#historias" class="btn-cta">Conhecer Histórias</a>
+        </div>
+    </header>
+
+    <!-- Secção de Histórias -->
+    <section class="stories" id="historias">
+        <div class="stories-header">
+            <div class="stories-titles">
+                <span class="stories-eyebrow">QUATRO TRAJETÓRIAS. UM LEGADO SEM LIMITES.</span>
+                <h2 class="stories-title">Elas mudaram a história.</h2>
+            </div>
+            <div class="stories-counter">01 — 04</div>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Alice Ball -->
+            <article class="card">
+                <div class="card-image-container">
+                    <!-- Podes substituir o link da imagem pelo teu ficheiro local no VS Code (ex: images/alice.jpg) -->
+                    <img src="imagems/Alice Ball.jpg" alt="Alice Ball">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">01 / INTERNACIONAL · QUÍMICA</span>
+                    <h3 class="card-name">Alice Ball</h3>
+                    <span class="card-profession">Química norte-americana · 1892–1916</span>
+                    <p class="card-contribution">Criou o “Método Ball”, o primeiro tratamento injetável eficaz e seguro contra a hanseníase. Primeira mulher e primeira pessoa negra a obter mestrado na Universidade do Havaí.</p>
+                </div>
+            </article>
+
+            <!-- Dra. Sônia Guimarães -->
+            <article class="card">
+                <div class="card-image-container">
+                    <img src="imagems/sonia.jpg" alt="Dra. Sônia Guimarães">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">02 / BRASIL · FÍSICA</span>
+                    <h3 class="card-name">Dra. Sônia Guimarães</h3>
+                    <span class="card-profession">Física e pesquisadora brasileira</span>
+                    <p class="card-contribution">Primeira mulher negra doutora em Física no Brasil e primeira professora negra do Instituto Tecnológico de Aeronáutica (ITA).</p>
+                </div>
+            </article>
+
+            <!-- Beatriz Nascimento -->
+            <article class="card">
+                <div class="card-image-container">
+                    <img src="imagems/Maria Beatriz Nascimento.jpg" alt="Beatriz Nascimento">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">03 / BRASIL · HISTÓRIA</span>
+                    <h3 class="card-name">Beatriz Nascimento</h3>
+                    <span class="card-profession">Historiadora, professora e poeta · 1942–1995</span>
+                    <p class="card-contribution">Intelectual de destaque nos estudos sobre o conceito de quilombo na história brasileira, racismo e o papel da mulher negra na sociedade.</p>
+                </div>
+            </article>
+
+            <!-- Dra. Megg Rayara -->
+            <article class="card">
+                <div class="card-image-container">
+                    <img src="imagems/Magg.webp" alt="Dra. Megg Rayara">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">04 / BRASIL · EDUCAÇÃO</span>
+                    <h3 class="card-name">Dra. Megg Rayara</h3>
+                    <span class="card-profession">Educadora, pesquisadora e ativista</span>
+                    <p class="card-contribution">Primeira mulher travesti negra a conquistar o título de Doutora em Educação no Brasil e professora da UFPR.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>Projeto Acadêmico — Mulheres na Ciência</p>
+        <p class="footer-quote">Reconhecer o passado. Inspirar o futuro.</p>
+        <p>Feito por Miguel Herculano, Ronald Vieira, Claudio e Rodrigo — Turma 2004.</p>
+        <p class="footer-school">C.E.J.L.L. — Colégio Estadual José Leite Lopes</p>
+    </footer>
+
+</body>
+</html>
