@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mulheres Negras na Ciência</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0B0B0F;
+            --card-bg: #141419;
+            --gold: #D4AF37;
+            --terracotta: #E9955C;
+            --ivory: #F6F2E9;
+            --text-secondary: #A9A7AE;
+            --border-color: #34302A;
+            --top-line-color: #39332A;
+            --footer-bg: #101014;
+            --glow-color: #2C2115;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--ivory);
+            font-family: 'Instrument Sans', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.modal-open { overflow: hidden; }
+
+        :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+        /* ---------- Hero ---------- */
+        header.hero {
+            padding: 32px 48px 64px 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
+        }
+
+        .top-bar {
+            width: 100%;
+            max-width: 1104px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--top-line-color);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+        }
+        .top-bar span:first-child { color: var(--ivory); }
+
+        .hero-content {
+            margin-top: 64px;
+            max-width: 940px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        h1.hero-title {
+            font-size: 76px;
+            font-weight: 700;
+            line-height: 1.04;
+            letter-spacing: -0.045em;
+        }
+        h1.hero-title span.gold { color: var(--gold); }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 550px;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--gold);
+            color: var(--bg-color);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 16px 28px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 8px;
+        }
+        .btn-cta:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3); }
+
+        /* ---------- Histórias ---------- */
+        section.stories {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 56px 48px 80px 48px;
+        }
+
+        .stories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 32px;
+        }
+        .stories-titles { display: flex; flex-direction: column; gap: 8px; }
+        .stories-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--gold); }
+        .stories-title { font-size: 38px; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; }
+        .stories-counter { font-size: 14px; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.05em; }
+
+        .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+        }
+
+        .card-image-container {
+            width: 100%;
+            height: 360px;
+            overflow: hidden;
+            background-color: #1f1f26;
+            position: relative;
+        }
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+        }
+
+        .card-content {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+        }
+        .card-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
+        .card-name { font-size: 27px; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; }
+        .card-profession { font-size: 14px; font-weight: 600; color: var(--gold); }
+        .card-contribution { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+
+        .card-more {
+            margin-top: auto;
+            padding-top: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-more::after { content: "+"; font-size: 18px; line-height: 1; transition: transform 0.3s ease; }
+        .card:hover .card-more::after { transform: rotate(90deg); }
+
+        /* ---------- Rodapé ---------- */
+        footer {
+            background-color: var(--footer-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        footer p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+        footer p.footer-quote { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
+        footer p.footer-school { font-weight: 600; color: var(--ivory); }
+
+        /* ---------- Modal ---------- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .modal.open { display: flex; }
+
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 5, 8, 0.82);
+            backdrop-filter: blur(6px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-panel {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 100%;
+            overflow-y: auto;
+            background: var(--card-bg);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 175, 55, 0.08);
+            animation: panelIn 0.35s cubic-bezier(.2,.8,.2,1);
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-color) transparent;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes panelIn { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+
+        .modal-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: linear-gradient(var(--card-bg) 60%, transparent);
+            pointer-events: none;
+        }
+        .modal-toolbar > * { pointer-events: auto; }
+
+        .modal-nav { display: flex; gap: 8px; align-items: center; }
+        .modal-position { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--text-secondary); margin-right: 8px; }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--ivory);
+            font-size: 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+        .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        .modal-body { padding: 0 40px 48px; margin-top: -24px; }
+
+        .detail-top {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .detail-portrait {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #1f1f26;
+            aspect-ratio: 4 / 5;
+        }
+        .detail-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+
+        .detail-intro { display: flex; flex-direction: column; gap: 14px; }
+        .detail-intro .card-meta { font-size: 11px; }
+        .detail-name { font-size: 46px; font-weight: 700; line-height: 1.08; letter-spacing: -0.035em; }
+        .detail-role { font-size: 16px; font-weight: 600; color: var(--gold); }
+        .detail-lead { font-size: 18px; line-height: 1.6; color: var(--ivory); max-width: 60ch; }
+        .detail-bio { display: flex; flex-direction: column; gap: 12px; }
+        .detail-bio p { font-size: 16px; line-height: 1.7; color: var(--text-secondary); max-width: 66ch; }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .fact {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: var(--bg-color);
+        }
+        .fact dt { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
+        .fact dd { font-size: 15px; line-height: 1.45; color: var(--ivory); }
+
+        .detail-section { margin-top: 48px; }
+        .detail-section h4 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            margin-bottom: 20px;
+        }
+
+        /* Linha do tempo */
+        .timeline { list-style: none; border-left: 1px solid var(--border-color); margin-left: 6px; }
+        .timeline li { position: relative; padding: 0 0 22px 28px; display: grid; grid-template-columns: 110px 1fr; gap: 16px; }
+        .timeline li:last-child { padding-bottom: 0; }
+        .timeline li::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+        .tl-year { font-size: 15px; font-weight: 700; color: var(--gold); }
+        .tl-text { font-size: 15px; line-height: 1.6; color: var(--text-secondary); max-width: 62ch; }
+
+        /* Galeria */
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .figure {
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .figure-art {
+            aspect-ratio: 10 / 7;
+            background: radial-gradient(circle at 50% 40%, var(--glow-color), #0F0F14 75%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            overflow: hidden;
+        }
+        .figure-art svg { width: 78%; height: auto; max-height: 86%; }
+        .figure-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .figure figcaption { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; }
+        .figure figcaption strong { font-size: 15px; font-weight: 600; }
+        .figure figcaption span { font-size: 14px; line-height: 1.55; color: var(--text-secondary); }
+
+        .detail-note { margin-top: 14px; font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+        /* ---------- Responsividade ---------- */
+        @media (max-width: 1199px) {
+            header.hero { padding: 32px 32px 56px 32px; }
+            h1.hero-title { font-size: 56px; }
+            section.stories { padding: 40px 32px 64px 32px; }
+            .detail-top { grid-template-columns: 280px 1fr; gap: 28px; }
+            .detail-name { font-size: 38px; }
+        }
+
+        @media (max-width: 809px) {
+            header.hero { padding: 24px 24px 48px 24px; }
+            .top-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .top-bar span:nth-child(2) { display: none; }
+            .hero-content { margin-top: 40px; }
+            h1.hero-title { font-size: 40px; }
+            .hero-description { font-size: 16px; }
+            section.stories { padding: 40px 24px 56px 24px; }
+            .stories-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .stories-title { font-size: 30px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .card-image-container { height: 300px; }
+
+            .modal { padding: 0; }
+            .modal-panel { border-radius: 0; border: none; height: 100%; max-height: 100%; }
+            .modal-body { padding: 0 20px 40px; }
+            .detail-top { grid-template-columns: 1fr; gap: 24px; }
+            .detail-portrait { aspect-ratio: 1 / 1; max-width: 360px; }
+            .detail-name { font-size: 32px; }
+            .detail-lead { font-size: 17px; }
+            .facts { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: 1fr; }
+            .timeline li { grid-template-columns: 1fr; gap: 2px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .modal-backdrop, .modal-panel { animation: none; }
+            .card, .btn-cta, .card-more::after { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Abertura / Hero -->
+    <header class="hero" id="topo">
+        <div class="top-bar">
+            <span>MULHERES NEGRAS / NA CIÊNCIA</span>
+            <span>CIÊNCIA, MEMÓRIA E REPRESENTATIVIDADE</span>
+        </div>
+
+        <div class="hero-content">
+            <span class="hero-subtitle">LEGADOS QUE ABREM CAMINHOS</span>
+            <h1 class="hero-title">Pioneiras da Ciência: <span class="gold">Vozes que Transformaram o Mundo</span></h1>
+            <p class="hero-description">Conheça quatro cientistas negras nacionais e internacionais que marcaram a história.</p>
+            <a href="#historias" class="btn-cta">Conhecer Histórias</a>
+        </div>
+    </header>
+
+    <!-- Secção de Histórias -->
+    <section class="stories" id="historias">
+        <div class="stories-header">
+            <div class="stories-titles">
+                <span class="stories-eyebrow">QUATRO TRAJETÓRIAS. UM LEGADO SEM LIMITES.</span>
+                <h2 class="stories-title">Elas mudaram a história.</h2>
+            </div>
+            <div class="stories-counter">01 — 04</div>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Alice Ball -->
+            <article class="card" data-id="alice" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Abrir a história de Alice Ball">
+                <div class="card-image-container">
+                    <img src="imagems/Alice Ball.jpg" alt="Alice Ball">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">01 / INTERNACIONAL · QUÍMICA</span>
+                    <h3 class="card-name">Alice Ball</h3>
+                    <span class="card-profession">Química norte-americana · 1892–1916</span>
+                    <p class="card-contribution">Criou o “Método Ball”, o primeiro tratamento injetável eficaz e seguro contra a hanseníase. Primeira mulher e primeira pessoa negra a obter mestrado na Universidade do Havaí.</p>
+                    <span class="card-more">Ver história completa</span>
+                </div>
+            </article>
+
+            <!-- Dra. Sônia Guimarães -->
+            <article class="card" data-id="sonia" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Abrir a história de Sônia Guimarães">
+                <div class="card-image-container">
+                    <img src="imagems/sonia.jpg" alt="Dra. Sônia Guimarães">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">02 / BRASIL · FÍSICA</span>
+                    <h3 class="card-name">Dra. Sônia Guimarães</h3>
+                    <span class="card-profession">Física e pesquisadora brasileira</span>
+                    <p class="card-contribution">Primeira mulher negra doutora em Física no Brasil e primeira professora negra do Instituto Tecnológico de Aeronáutica (ITA).</p>
+                    <span class="card-more">Ver história completa</span>
+                </div>
+            </article>
+
+            <!-- Beatriz Nascimento -->
+            <article class="card" data-id="beatriz" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Abrir a história de Beatriz Nascimento">
+                <div class="card-image-container">
+                    <img src="imagems/Maria Beatriz Nascimento.jpg" alt="Beatriz Nascimento">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">03 / BRASIL · HISTÓRIA</span>
+                    <h3 class="card-name">Beatriz Nascimento</h3>
+                    <span class="card-profession">Historiadora, professora e poeta · 1942–1995</span>
+                    <p class="card-contribution">Intelectual de destaque nos estudos sobre o conceito de quilombo na história brasileira, racismo e o papel da mulher negra na sociedade.</p>
+                    <span class="card-more">Ver história completa</span>
+                </div>
+            </article>
+
+            <!-- Dra. Megg Rayara -->
+            <article class="card" data-id="megg" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Abrir a história de Megg Rayara">
+                <div class="card-image-container">
+                    <img src="imagems/Magg.webp" alt="Dra. Megg Rayara">
+                </div>
+                <div class="card-content">
+                    <span class="card-meta">04 / BRASIL · EDUCAÇÃO</span>
+                    <h3 class="card-name">Dra. Megg Rayara</h3>
+                    <span class="card-profession">Educadora, pesquisadora e ativista</span>
+                    <p class="card-contribution">Primeira mulher travesti negra a conquistar o título de Doutora em Educação no Brasil e professora da UFPR.</p>
+                    <span class="card-more">Ver história completa</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>Projeto Acadêmico — Mulheres na Ciência</p>
+        <p class="footer-quote">Reconhecer o passado. Inspirar o futuro.</p>
+        <p>Feito por Miguel Herculano, Ronald Vieira, Claudio e Rodrigo — Turma 2004.</p>
+        <p class="footer-school">C.E.J.L.L. — Colégio Estadual José Leite Lopes</p>
+    </footer>
+
+    <!-- Modal de detalhes -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="detail-name" aria-hidden="true">
+        <div class="modal-backdrop" data-close></div>
+        <div class="modal-panel" id="modal-panel">
+            <div class="modal-toolbar">
+                <div class="modal-nav">
+                    <span class="modal-position" id="modal-position">01 — 04</span>
+                    <button class="icon-btn" id="prev" aria-label="Cientista anterior">&larr;</button>
+                    <button class="icon-btn" id="next" aria-label="Próxima cientista">&rarr;</button>
+                </div>
+                <button class="icon-btn" id="close" aria-label="Fechar" data-close>&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        /* ------------------------------------------------------------
+           Ilustrações em SVG (descobertas, experiências e temas).
+           Para usar uma foto real numa galeria, basta colocar
+           src: "imagems/o-teu-ficheiro.jpg" no item correspondente.
+        ------------------------------------------------------------ */
+        const S = (inner) => `<svg viewBox="0 0 200 140" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
+
+        const ART = {
+            leaf: S(`<path d="M100 14C150 42 154 98 100 126 46 98 50 42 100 14Z"/><path d="M100 22V126"/><path d="M100 50l24-14M100 72l30-16M100 94l24-14M100 50L76 36M100 72L70 56M100 94L76 80" stroke-width="1.5" opacity=".7"/><circle cx="38" cy="112" r="7"/><circle cx="162" cy="116" r="6"/><circle cx="26" cy="90" r="4"/>`),
+            molecule: S(`<polygon points="60,40 82,28 104,40 104,64 82,76 60,64"/><polygon points="104,64 126,52 148,64 148,88 126,100 104,88"/><path d="M60 64L38 76M148 64l22-12M126 100v22M82 28V12"/><circle cx="38" cy="76" r="5"/><circle cx="170" cy="52" r="5"/><circle cx="126" cy="122" r="5"/><circle cx="82" cy="12" r="5"/>`),
+            syringe: S(`<rect x="52" y="48" width="84" height="34" rx="6" transform="rotate(-20 94 65)"/><path d="M40 108l30-28M136 36l22-8M146 22l22 22M28 124l12-16" /><path d="M72 62l8 20M88 56l8 20M104 50l8 20" opacity=".6" stroke-width="1.5"/><path d="M26 124c-6 0-8 6 0 10 4-2 6-8 0-10z" stroke-width="1.5"/>`),
+            chip: S(`<rect x="56" y="36" width="88" height="68" rx="6"/><rect x="76" y="54" width="48" height="32" rx="3"/><path d="M72 36V20M92 36V20M112 36V20M132 36V20M72 104v16M92 104v16M112 104v16M132 104v16M56 56H40M56 70H40M56 84H40M144 56h16M144 70h16M144 84h16"/>`),
+            infrared: S(`<path d="M10 40c20-20 30 20 50 0s30 20 50 0 30 20 50 0 20 10 30 0"/><path d="M10 60c20-20 30 20 50 0s30 20 50 0 30 20 50 0 20 10 30 0" opacity=".6"/><rect x="50" y="86" width="20" height="20" rx="2"/><rect x="80" y="86" width="20" height="20" rx="2"/><rect x="110" y="86" width="20" height="20" rx="2"/><rect x="140" y="86" width="20" height="20" rx="2"/><rect x="50" y="112" width="20" height="14" rx="2" opacity=".5"/><rect x="80" y="112" width="20" height="14" rx="2" opacity=".5"/>`),
+            plane: S(`<path d="M16 76l62-12-22-40h12l40 36 44-10c10-2 16 8 6 12l-44 14-30 40h-12l12-38-56-4z"/><path d="M130 100h50M146 112h34" opacity=".5" stroke-width="1.5"/>`),
+            quilombo: S(`<circle cx="152" cy="34" r="14"/><path d="M8 112L58 50l30 36 26-30 78 56z"/><path d="M40 112l14-16 14 16zM96 112l12-14 12 14zM132 112l12-14 12 14z" stroke-width="1.5"/><path d="M8 124h184" opacity=".5"/>`),
+            film: S(`<rect x="30" y="26" width="140" height="88" rx="8"/><path d="M30 44h140M30 96h140"/><path d="M44 30v10M62 30v10M80 30v10M98 30v10M116 30v10M134 30v10M152 30v10M44 100v10M62 100v10M80 100v10M98 100v10M116 100v10M134 100v10M152 100v10" stroke-width="1.5"/><path d="M90 56l30 14-30 14z"/>`),
+            archive: S(`<rect x="46" y="22" width="108" height="26" rx="4"/><rect x="46" y="56" width="108" height="26" rx="4"/><rect x="46" y="90" width="108" height="26" rx="4"/><path d="M88 35h24M88 69h24M88 103h24"/>`),
+            cap: S(`<path d="M100 28L18 62l82 34 82-34z"/><path d="M50 78v28c0 8 100 8 100 0V78"/><path d="M182 62v38"/><circle cx="182" cy="106" r="5"/>`),
+            building: S(`<path d="M24 56L100 20l76 36z"/><path d="M36 60v52M70 60v52M104 60v52M138 60v52M164 60v52" /><path d="M20 116h160M12 128h176"/>`),
+            speech: S(`<path d="M24 24h92a10 10 0 0 1 10 10v36a10 10 0 0 1-10 10H64l-22 18V80H24a10 10 0 0 1-10-10V34a10 10 0 0 1 10-10z"/><path d="M146 58h30a10 10 0 0 1 10 10v30a10 10 0 0 1-10 10h-6v16l-20-16h-34a10 10 0 0 1-10-10V92" opacity=".7"/><path d="M34 42h72M34 56h48" stroke-width="1.5"/>`)
+        };
+
+        /* ------------------------------------------------------------
+           Dados das cientistas
+        ------------------------------------------------------------ */
+        const SCIENTISTS = [
+            {
+                id: "alice",
+                img: "imagems/Alice Ball.jpg",
+                meta: "01 / INTERNACIONAL · QUÍMICA",
+                name: "Alice Ball",
+                role: "Química norte-americana · 1892–1916",
+                lead: "Aos 23 anos, encontrou a forma de tornar injetável o óleo de chaulmoogra, a melhor esperança contra a hanseníase na sua época.",
+                bio: [
+                    "Alice Augusta Ball nasceu em Seattle (EUA) numa família de fotógrafos e advogados. Estudou na Universidade de Washington, onde concluiu graduações em química farmacêutica e em farmácia, e depois seguiu para a Universidade do Havaí.",
+                    "Em 1915 tornou-se a primeira mulher e a primeira pessoa negra a obter um mestrado nessa universidade, e foi também a primeira mulher a lecionar química ali.",
+                    "O óleo de chaulmoogra era usado há séculos contra a hanseníase, mas era muito espesso e amargo, difícil de aplicar e de absorver. Alice desenvolveu uma técnica que transformava os seus ácidos ativos em ésteres etílicos solúveis, que podiam ser injetados. Ficou conhecida como “Método Ball”."
+                ],
+                facts: [
+                    ["Área", "Química (farmacêutica)"],
+                    ["Descoberta", "Método Ball, 1915"],
+                    ["Marco académico", "Primeira pessoa negra com mestrado na Universidade do Havaí"],
+                    ["Faleceu", "Em 1916, com apenas 24 anos"]
+                ],
+                timeline: [
+                    ["1892", "Nasce em Seattle, nos Estados Unidos."],
+                    ["1912–1914", "Conclui duas graduações na Universidade de Washington: química farmacêutica e farmácia."],
+                    ["1915", "Obtém o mestrado na Universidade do Havaí e desenvolve o método injetável com óleo de chaulmoogra."],
+                    ["1916", "Falece aos 24 anos, sem ter publicado a sua descoberta."],
+                    ["1922", "O médico Harry Hollmann publica um artigo que reconhece o trabalho dela e dá o nome de “Método Ball” à técnica."],
+                    ["2000", "O Havaí passa a homenageá-la com o “Dia de Alice Ball”."]
+                ],
+                gallery: [
+                    { art: "leaf", title: "Chaulmoogra", text: "A árvore de onde vinha o óleo usado havia séculos contra a hanseníase." },
+                    { art: "molecule", title: "Ésteres etílicos", text: "A transformação química que tornou o óleo solúvel e injetável." },
+                    { art: "syringe", title: "Tratamento injetável", text: "O Método Ball foi usado por cerca de três décadas, até surgirem os antibióticos." }
+                ]
+            },
+            {
+                id: "sonia",
+                img: "imagems/sonia.jpg",
+                meta: "02 / BRASIL · FÍSICA",
+                name: "Dra. Sônia Guimarães",
+                role: "Física e pesquisadora brasileira",
+                lead: "Abriu uma porta que parecia fechada: a da física de alto nível no Brasil, dentro do ITA, uma das escolas de engenharia mais exigentes do país.",
+                bio: [
+                    "Sônia Guimarães é doutora em Física e foi a primeira mulher negra a obter esse título no Brasil. Fez o doutorado no Reino Unido, na Universidade de Manchester, e trabalha com materiais semicondutores.",
+                    "Desde 1993 é professora do Instituto Tecnológico de Aeronáutica (ITA), em São José dos Campos, onde foi a primeira professora negra. Ali pesquisa materiais usados em sensores e detetores de radiação infravermelha.",
+                    "Além da pesquisa, dedica-se a incentivar meninas e jovens negros a entrarem nas áreas de ciência e tecnologia, mostrando que esses espaços também lhes pertencem."
+                ],
+                facts: [
+                    ["Área", "Física de materiais semicondutores"],
+                    ["Instituição", "ITA — Instituto Tecnológico de Aeronáutica"],
+                    ["Doutorado", "Universidade de Manchester (Reino Unido)"],
+                    ["Pioneirismo", "Primeira mulher negra doutora em Física no Brasil"]
+                ],
+                timeline: [
+                    ["Formação", "Estuda Física no Brasil e segue para o doutorado no Reino Unido, em Manchester."],
+                    ["Doutorado", "Torna-se a primeira mulher negra doutora em Física do Brasil."],
+                    ["1993", "Entra para o corpo docente do ITA como a primeira professora negra da instituição."],
+                    ["Hoje", "Continua a pesquisar semicondutores e a inspirar novas gerações na ciência."]
+                ],
+                gallery: [
+                    { art: "chip", title: "Semicondutores", text: "Materiais que são a base de chips, sensores e componentes eletrónicos." },
+                    { art: "infrared", title: "Detetores infravermelhos", text: "Sensores que captam radiação invisível ao olho humano." },
+                    { art: "plane", title: "ITA", text: "O instituto de ensino e pesquisa em tecnologia aeronáutica onde leciona." }
+                ]
+            },
+            {
+                id: "beatriz",
+                img: "imagems/Maria Beatriz Nascimento.jpg",
+                meta: "03 / BRASIL · HISTÓRIA",
+                name: "Beatriz Nascimento",
+                role: "Historiadora, professora e poeta · 1942–1995",
+                lead: "Mudou a forma de contar a história dos quilombos: de simples refúgio de fugitivos a espaços de liberdade, organização e cultura negra.",
+                bio: [
+                    "Maria Beatriz Nascimento nasceu em Aracaju (Sergipe) em 1942 e mudou-se ainda criança para o Rio de Janeiro. Formou-se em História pela UFRJ e trabalhou no Arquivo Nacional.",
+                    "Na sua pesquisa, defendeu que o quilombo não era só um lugar de resistência à escravidão, mas uma forma de organização social e um símbolo de continuidade da cultura negra no Brasil. Escreveu também sobre racismo e sobre o lugar da mulher negra na sociedade.",
+                    "Foi ainda poeta e participou no filme “Ôri” (1989), de Raquel Gerber, que percorre a história dos movimentos negros brasileiros. Foi assassinada em 1995, no Rio de Janeiro, e o seu pensamento é hoje muito estudado."
+                ],
+                facts: [
+                    ["Área", "História, quilombos e estudos sobre racismo"],
+                    ["Formação", "História — UFRJ"],
+                    ["Filme", "“Ôri” (1989)"],
+                    ["Legado", "Nova leitura do quilombo na história do Brasil"]
+                ],
+                timeline: [
+                    ["1942", "Nasce em Aracaju, Sergipe."],
+                    ["Anos 1970", "Forma-se em História pela UFRJ e começa a estudar a história do quilombo."],
+                    ["1989", "Participa do documentário “Ôri”, sobre a trajetória dos movimentos negros."],
+                    ["1995", "É assassinada no Rio de Janeiro. A sua obra segue a ser lida e debatida."]
+                ],
+                gallery: [
+                    { art: "quilombo", title: "Quilombo", text: "Para Beatriz, um espaço de liberdade e de organização do povo negro." },
+                    { art: "film", title: "Filme “Ôri”", text: "Documentário de 1989 em que a sua voz ajuda a contar a história dos movimentos negros." },
+                    { art: "archive", title: "Arquivo Nacional", text: "A instituição onde trabalhou e que guarda a memória que ela ajudou a reinterpretar." }
+                ]
+            },
+            {
+                id: "megg",
+                img: "imagems/Magg.webp",
+                meta: "04 / BRASIL · EDUCAÇÃO",
+                name: "Dra. Megg Rayara",
+                role: "Educadora, pesquisadora e ativista",
+                lead: "Transformou a sua trajetória em pesquisa: estuda como o racismo e a discriminação de género e sexualidade marcam a escola e a universidade.",
+                bio: [
+                    "Megg Rayara Gomes de Oliveira é professora da Universidade Federal do Paraná (UFPR), em Curitiba, e pesquisadora em Educação.",
+                    "É a primeira mulher travesti negra a conquistar o título de Doutora em Educação no Brasil, num percurso em que a presença de pessoas trans e negras nas universidades ainda é muito rara.",
+                    "O seu trabalho analisa o racismo, a homofobia e a transfobia no ambiente educativo e defende uma escola em que todas as pessoas sejam respeitadas e possam aprender em segurança."
+                ],
+                facts: [
+                    ["Área", "Educação, relações raciais, género e sexualidade"],
+                    ["Instituição", "UFPR — Universidade Federal do Paraná"],
+                    ["Título", "Doutora em Educação"],
+                    ["Pioneirismo", "Primeira mulher travesti negra doutora em Educação no Brasil"]
+                ],
+                timeline: [
+                    ["Formação", "Percorre a formação académica até ao doutorado em Educação."],
+                    ["Doutorado", "Conquista o título e torna-se referência como mulher travesti negra na academia."],
+                    ["Hoje", "Leciona na UFPR, pesquisa e participa em debates públicos sobre educação e diversidade."]
+                ],
+                gallery: [
+                    { art: "cap", title: "Doutorado", text: "O título que marcou um passo histórico para pessoas trans e negras na universidade." },
+                    { art: "building", title: "UFPR", text: "A universidade onde leciona e desenvolve a sua pesquisa." },
+                    { art: "speech", title: "Debate e ativismo", text: "Palestras e textos sobre racismo e diversidade na educação." }
+                ]
+            }
+        ];
+
+        /* ------------------------------------------------------------
+           Lógica do modal
+        ------------------------------------------------------------ */
+        const modal = document.getElementById('modal');
+        const panel = document.getElementById('modal-panel');
+        const body = document.getElementById('modal-body');
+        const position = document.getElementById('modal-position');
+        let current = 0;
+        let lastFocused = null;
+
+        const pad = (n) => String(n).padStart(2, '0');
+
+        function render(index) {
+            const s = SCIENTISTS[index];
+            current = index;
+            position.textContent = `${pad(index + 1)} — ${pad(SCIENTISTS.length)}`;
+
+            body.innerHTML = `
+                <div class="detail-top">
+                    <div class="detail-portrait"><img src="${s.img}" alt="${s.name}"></div>
+                    <div class="detail-intro">
+                        <span class="card-meta">${s.meta}</span>
+                        <h3 class="detail-name" id="detail-name">${s.name}</h3>
+                        <span class="detail-role">${s.role}</span>
+                        <p class="detail-lead">${s.lead}</p>
+                        <div class="detail-bio">${s.bio.map(p => `<p>${p}</p>`).join('')}</div>
+                        <dl class="facts">
+                            ${s.facts.map(f => `<div class="fact"><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join('')}
+                        </dl>
+                    </div>
+                </div>
+
+                <section class="detail-section">
+                    <h4>Linha do tempo</h4>
+                    <ol class="timeline">
+                        ${s.timeline.map(t => `<li><span class="tl-year">${t[0]}</span><span class="tl-text">${t[1]}</span></li>`).join('')}
+                    </ol>
+                </section>
+
+                <section class="detail-section">
+                    <h4>Descobertas e temas de pesquisa</h4>
+                    <div class="gallery">
+                        ${s.gallery.map(g => `
+                            <figure class="figure">
+                                <div class="figure-art">${g.src ? `<img src="${g.src}" alt="${g.title}">` : g.art ? ART[g.art] : ''}</div>
+                                <figcaption><strong>${g.title}</strong><span>${g.text}</span></figcaption>
+                            </figure>`).join('')}
+                    </div>
+                    <p class="detail-note">As ilustrações são representações dos temas. Podes trocar qualquer uma por uma foto real adicionando <code>src: "imagems/ficheiro.jpg"</code> ao item da galeria no código.</p>
+                </section>
+            `;
+            panel.scrollTop = 0;
+        }
+
+        function openModal(index) {
+            lastFocused = document.activeElement;
+            render(index);
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            document.getElementById('close').focus();
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            if (lastFocused) lastFocused.focus();
+        }
+
+        function step(dir) {
+            render((current + dir + SCIENTISTS.length) % SCIENTISTS.length);
+        }
+
+        document.querySelectorAll('.card').forEach((card) => {
+            const idx = SCIENTISTS.findIndex(s => s.id === card.dataset.id);
+            card.addEventListener('click', () => openModal(idx));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); }
+            });
+        });
+
+        modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeModal));
+        document.getElementById('prev').addEventListener('click', () => step(-1));
+        document.getElementById('next').addEventListener('click', () => step(1));
+
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('open')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') step(-1);
+            if (e.key === 'ArrowRight') step(1);
+        });
+    </script>
+</body>
+</html>
